@@ -54,16 +54,17 @@ st.subheader("Top Features")
 
 plt.rcParams["font.family"] = "Arial"
 
-wordcloud = WordCloud(width = 800, height = 800,
-                      background_color ='white',
-                      stopwords = set(['s']),  # Any stopwords you'd like to exclude
-                      min_font_size = 10).generate(feature_text_func(sector_name))
+wordcloud = WordCloud(width=800, height=800, background_color='white',
+                      stopwords=set(['s']), min_font_size=10).generate(feature_text_func(sector_name))
 
-plt.figure(figsize = (8, 8), facecolor = None)
-plt.imshow(wordcloud, interpolation='bilinear')
-plt.axis("off")
-plt.tight_layout(pad = 0)
-st.pyplot()
+# Create a figure without using plt.figure() to avoid potential conflicts
+fig, ax = plt.subplots(figsize=(8, 8), facecolor=None)
+ax.imshow(wordcloud, interpolation='bilinear')
+ax.axis("off")
+plt.tight_layout(pad=0)
+
+# Display the figure using Streamlit
+st.pyplot(fig)
 
 #Price Vs Built UP area
 property_type = st.selectbox("Select Property Type" , ['flat' , 'house'])
