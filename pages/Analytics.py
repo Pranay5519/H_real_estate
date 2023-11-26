@@ -32,30 +32,7 @@ fig = px.scatter_mapbox(group_df, lat="latitude", lon="longitude", color="pricep
 
 st.plotly_chart(fig , use_container_width=True)
 
-# Nearest Locations PLot
-st.header("Nearest Locations")
 
-placeslatlong = pd.read_csv('hyderbad_places_latlong.csv')
-
-group_df1 = group_df.reset_index(drop=False)
-
-
-sectorname = st.selectbox('Sector',sorted(group_df1['sector'].unique().tolist()))
-sec = group_df1[group_df1['sector']==sectorname]
-st.dataframe(sec)
-fig1 = px.scatter_mapbox(placeslatlong, lat="Latitude", lon="Longitude", color='title', hover_name='Name',
-                         color_continuous_scale=px.colors.cyclical.HSV, zoom=10,
-                         mapbox_style="open-street-map", width=1800, height=800)
-fig1.update_traces(marker=dict( size=10))
-
-fig2 = px.scatter_mapbox(sec, lat="latitude", lon="longitude",
-                         color_continuous_scale=px.colors.cyclical.IceFire, zoom=10,
-                         mapbox_style="open-street-map", width=1800, height=800
-                         , color_discrete_sequence=["red"] , hover_name='sector')
-fig2.update_traces(marker=dict( size=10))
-
-fig1.add_trace(fig2.data[0])
-st.plotly_chart(fig1 , use_container_width=True)
 
 # Age Possession
 
@@ -129,3 +106,29 @@ sns.distplot(word_df[word_df['property_type'] == 'house']['price'],label='house'
 sns.distplot(word_df[word_df['property_type'] == 'flat']['price'], label='flat')
 plt.legend()
 st.pyplot(fig3)
+
+
+# Nearest Locations PLot
+st.header("Nearest Locations")
+
+placeslatlong = pd.read_csv('hyderbad_places_latlong.csv')
+
+group_df1 = group_df.reset_index(drop=False)
+
+
+sectorname = st.selectbox('Sector',sorted(group_df1['sector'].unique().tolist()))
+sec = group_df1[group_df1['sector']==sectorname]
+st.dataframe(sec)
+fig1 = px.scatter_mapbox(placeslatlong, lat="Latitude", lon="Longitude", color='title', hover_name='Name',
+                         color_continuous_scale=px.colors.cyclical.HSV, zoom=10,
+                         mapbox_style="open-street-map", width=1800, height=800)
+fig1.update_traces(marker=dict( size=10))
+
+fig2 = px.scatter_mapbox(sec, lat="latitude", lon="longitude",
+                         color_continuous_scale=px.colors.cyclical.IceFire, zoom=10,
+                         mapbox_style="open-street-map", width=1800, height=800
+                         , color_discrete_sequence=["red"] , hover_name='sector')
+fig2.update_traces(marker=dict( size=10))
+
+fig1.add_trace(fig2.data[0])
+st.plotly_chart(fig1 , use_container_width=True)
