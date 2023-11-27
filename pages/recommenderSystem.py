@@ -124,4 +124,4 @@ if st.button('Recommend'):
     cosine_sim = cosine_similarity(df[df['sector'] == sector][['price','built_up_area','agePossession','luxury_score','furnish_score']], one_df[['price','built_up_area','agePossession','luxury_score','furnish_score']])
     similar_rows_indices = cosine_sim[:, 0].argsort()[:-6:-1]
 
-    st.dataframe(df1[df1['sector']=='tellapur'].iloc[similar_rows_indices])
+    st.dataframe(df1.iloc[similar_rows_indices])
