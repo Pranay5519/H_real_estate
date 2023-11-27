@@ -113,7 +113,14 @@ st.pyplot(fig3)
 st.header("Nearest Locations")
 
 placeslatlong = pd.read_csv('hyderbad_places_latlong.csv')
+placeslatlong[['Latitude', 'Longitude']] = placeslatlong['Coordinates'].str.split(', ', expand=True)
 
+# Remove the degree symbol and leading/trailing whitespaces
+placeslatlong['Latitude'] = placeslatlong['Latitude'].str.replace('° N', '').str.strip()
+placeslatlong['Longitude'] = placeslatlong['Longitude'].str.replace('° E', '').str.strip()
+
+# Convert the columns to numeric (if needed)
+placeslatlong[['Latitude', 'Longitude']] = placeslatlong[['Latitude', 'Longitude']].apply(pd.to_numeric)
 group_df1 = group_df.reset_index(drop=False)
 
 
