@@ -22,7 +22,7 @@ st.set_page_config(page_title="Plotting Demo")
 
 st.title('Analytics')
 st.subheader("Average Price per Sqft")
-new_df = pd.read_csv('data_for_viz.csv')
+new_df = pd.read_csv("data_for_viz.csv")
 group_df = new_df.groupby('sector').mean()[['price','pricepersqft','built_up_area','latitude','longitude']]
 group_df.dropna(inplace= True)
 
@@ -112,7 +112,7 @@ st.pyplot(fig3)
 # Nearest Locations PLot
 st.header("Nearest Locations")
 
-placeslatlong = pd.read_csv('hyderbad_places_latlong.csv')
+placeslatlong = pd.read_csv("hyderbad_places_latlong.csv")
 placeslatlong[['Latitude', 'Longitude']] = placeslatlong['Coordinates'].str.split(', ', expand=True)
 
 # Remove the degree symbol and leading/trailing whitespaces
@@ -121,13 +121,15 @@ placeslatlong['Longitude'] = placeslatlong['Longitude'].str.replace('° E', '').
 
 # Convert the columns to numeric (if needed)
 placeslatlong[['Latitude', 'Longitude']] = placeslatlong[['Latitude', 'Longitude']].apply(pd.to_numeric)
+
+print(placeslatlong)
 group_df1 = group_df.reset_index(drop=False)
 
 
 sectorname = st.selectbox('Sector',sorted(group_df1['sector'].unique().tolist()))
 sec = group_df1[group_df1['sector']==sectorname]
 st.dataframe(sec)
-fig1 = px.scatter_mapbox(placeslatlong, lat="Latitude", lon="Longitude", color='title', hover_name='Name',
+fig1 = px.scatter_mapbox(placeslatlong, lat="Latitude", lon="Longitude",
                          color_continuous_scale=px.colors.cyclical.HSV, zoom=10,
                          mapbox_style="open-street-map", width=1800, height=800)
 fig1.update_traces(marker=dict( size=10))
