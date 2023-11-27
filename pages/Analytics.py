@@ -130,7 +130,7 @@ sectorname = st.selectbox('Sector',sorted(group_df1['sector'].unique().tolist())
 sec = group_df1[group_df1['sector']==sectorname]
 st.dataframe(sec)
 fig1 = px.scatter_mapbox(placeslatlong, lat="Latitude", lon="Longitude",
-                         color_continuous_scale=px.colors.cyclical.HSV, zoom=10,
+                         color_continuous_scale=px.colors.cyclical.HSV, zoom=10,color_discrete_sequence=["orange"], 
                          mapbox_style="open-street-map", width=1800, height=800)
 fig1.update_traces(marker=dict( size=10))
 
