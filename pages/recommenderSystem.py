@@ -121,7 +121,7 @@ if st.button('Recommend'):
     one_df['furnish_score'] = furnish_score_or.transform(one_df[['furnish_score']])
     one_df['agePossession'] = agePossession_or.transform(one_df[['agePossession']])
     sector = sector_or.transform([[sector]])[0][0]
-    cosine_sim = cosine_similarity(df[df['sector'] == sector], one_df)
+    cosine_sim = cosine_similarity(df[df['sector'] == sector][['price','built_up_area','agePossession','luxury_score','furnish_score']], one_df[['price','built_up_area','agePossession','luxury_score','furnish_score']])
     similar_rows_indices = cosine_sim[:, 0].argsort()[:-6:-1]
 
     st.dataframe(df1[df1['sector']=='tellapur'].iloc[similar_rows_indices])
