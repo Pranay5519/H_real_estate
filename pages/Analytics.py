@@ -48,7 +48,7 @@ st.plotly_chart(fig4 , use_container_width=True)
 # Features PLOT
 st.header('Top Features Per Sector')
 
-sector_name = st.selectbox('Sector',word_df['sector'].unique().tolist())
+sector_name = st.selectbox('Sector', word_df['sector'].unique().tolist())
 
 st.subheader("Top Features")
 
@@ -57,7 +57,7 @@ plt.rcParams["font.family"] = "Arial"
 wordcloud = WordCloud(width=800, height=800, background_color='white',
                       stopwords=set(['s']), min_font_size=10).generate(feature_text_func(sector_name))
 
-# Create a figure without using plt.figure() to avoid potential conflicts
+# Create a figure using matplotlib.pyplot
 fig, ax = plt.subplots(figsize=(8, 8), facecolor=None)
 ax.imshow(wordcloud, interpolation='bilinear')
 ax.axis("off")
